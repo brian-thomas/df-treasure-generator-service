@@ -5,3 +5,5 @@ gunicorn==19.3.0
 psycopg2==2.6
 SQLAlchemy==1.0.4
 whitenoise==1.0.6
+Flask==0.10.1
+git+git://www.github.com/brian-thomas/gdftg.git@master
