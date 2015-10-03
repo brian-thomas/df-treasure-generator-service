@@ -38,7 +38,6 @@ def __generate__treasure(ttype="All", number=1):
 
 @app.route('/')
 def home():
-    print ("request host:"+str(request.host))
     return render_template('home.html', version=SERVICE_VERSION, \
                             service_url=request.host)
 
@@ -55,10 +54,5 @@ def generate_treasure_single():
     return __generate__treasure()
 
 if __name__ == '__main__':
-    print ("Starting service")
-
-    # TODO: set library version
-    #LIBRARY_VERSION=df.__version__
-
     app.run()
 
