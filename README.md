@@ -1,7 +1,7 @@
 # df-treasure-generator-service
 
-A service implementation for the GURPS Dungeon Fantasy 
-Treasure Generator project.
+A service implementation for the GURPS Dungeon Fantasy Treasure 
+Generator project, https://github.com/brian-thomas/df-treasure-generator.
 
 This service may be called either from the command line 
 as a local service or deployed to Heroku.
