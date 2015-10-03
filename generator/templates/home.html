@@ -56,6 +56,17 @@ will generate 11 random items of type &quot;Containers&quot;.
 </p><p>
 The data are returned as a list of items.
 </p><p>
+<h3>Treasure Types</h3>
+</p><p>
+Treasure types currently implemented and understood by the generator include
+the following :
+</p><p>
+<ul>
+ {% for ttype in ttypes %}
+  <li>{{ ttype }}</li>
+ {% endfor %}
+</ul>
+</p><p>
 <!--
 <pre>
 {

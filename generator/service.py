@@ -9,6 +9,7 @@
 
 '''
 from flask import jsonify, request, render_template, Flask
+from gdftg.generator import Generator
 import gdftg
 
 # this should reflect both this service and the backing
@@ -22,7 +23,6 @@ app = Flask(__name__)
 
 def __generate__treasure(ttype="All", number=1):
     try:
-        from gdftg.generator import Generator
         generator = Generator(ttype)
         items = generator.run(numberToGenerate=number, max_item_value=None, min_item_value=None, max_enchantments=None)
 
@@ -38,8 +38,10 @@ def __generate__treasure(ttype="All", number=1):
 
 @app.route('/')
 def home():
+    gen = Generator()
+    ttypes = sorted(list(gen.treasureClasses()))
     return render_template('home.html', version=SERVICE_VERSION, \
-                            service_url=request.host)
+                            ttypes=ttypes, service_url=request.host)
 
 @app.route('/generate/<int:number>/<ttype>/', methods=['GET'])
 def generate_treasure_full(ttype, number):
