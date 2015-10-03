@@ -8,28 +8,17 @@
    @email=galactictaco@gmail.com
 
 '''
-from flask import jsonify, Flask
+from flask import jsonify, request, render_template, Flask
+import gdftg
 
 # this should reflect both this service and the backing
 # assorted libraries
-SERVICE_VERSION='1.0.0'
+SERVICE_VERSION='v1'
 
 # textmining-ocio library version backing this service
-#LIBRARY_VERSION = '0.0.0' 
+LIBRARY_VERSION = gdftg.version
 
 app = Flask(__name__)
-
-@app.route('/')
-def home():
-    return 'The DF Treasure Generator service. generator obj:'
-
-@app.route('/generate/<ttype>/<int:number>/', methods=['GET'])
-def generate_treasure_full(ttype, number):
-    return __generate__treasure(ttype=ttype,number=number)
-
-@app.route('/generate/<int:number>/', methods=['GET'])
-def generate_treasure_num_only(number):
-    return __generate__treasure(number=number)
 
 def __generate__treasure(ttype="All", number=1):
     try:
@@ -46,6 +35,24 @@ def __generate__treasure(ttype="All", number=1):
 
     except Exception as ex:
         return str(ex)
+
+@app.route('/')
+def home():
+    print ("request host:"+str(request.host))
+    return render_template('home.html', version=SERVICE_VERSION, \
+                            service_url=request.host)
+
+@app.route('/generate/<int:number>/<ttype>/', methods=['GET'])
+def generate_treasure_full(ttype, number):
+    return __generate__treasure(ttype=ttype,number=number)
+
+@app.route('/generate/<int:number>/', methods=['GET'])
+def generate_treasure_num_only(number):
+    return __generate__treasure(number=number)
+
+@app.route('/generate/', methods=['GET'])
+def generate_treasure_single():
+    return __generate__treasure()
 
 if __name__ == '__main__':
     print ("Starting service")

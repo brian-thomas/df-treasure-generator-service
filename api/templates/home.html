@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+<title>GURPS Dungeon Fantasy Treasure Generator Service</title>
+<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+<script>
+var url = "/{{ version }}/{{ methodname }}/";
+
+$( document ).ready(function() {
+$("#txt").val("The 2000 Pilot Environmental Sustainability Index (ESI) is an exploratory effort to construct an index that measures the ability of a nation's economy to achieve sustainable development, with the long term goal of finding a single indicator for environmental sustainability analagous to that of the Gross Domestic Product (GDP). The index covering 56 countries is a composite measure of the current status of a nation's environmental systems, pressures on those systems, human vulnerability to environmental change, national capacity to respond, and contributions to global environmental stewardship. The index was unveiled at the World Economic Forum's annual meeting, January 2000, Davos, Switzerland. The 2000 Pilot ESI is the result of collaboration among the World Economic Forum (WEF), Yale Center for Environmental Law and Policy (YCELP), and the Columbia University Center for International Earth Science Information Network (CIESIN).");
+});
+
+function doit() {
+  var txt = $("#txt").val();
+
+  $.ajax({
+    type: "POST",
+    url: url, 
+    contentType: "application/json",
+    data: JSON.stringify({"text": txt}),
+    success: function(result) {
+      console.log(result);
+      $("#returnData").text(JSON.stringify(result, undefined, 2));
+    }
+  });  
+}
+
+</script>
+</head><body>
+<p>
+<h2>GURPS Dungeon Fantasy Treasure Generation Service {{version}}</h2>
+</p>
+
+<h3>Service API</h3>
+<p>
+This service contains a couple of endpoints which include:
+<ul>
+  <li><b><i>/{{ version }}/generate/</i></b> : generates one random item </li> 
+  <li><b><i>/{{ version }}/generate/&lt;number&gt;/</i></b> : generates &lt;number&gt; random items </li> 
+  <li><b><i>/{{ version }}generate/&lt;number&gt;/&lt;type&gt;/</i></b> : generates &lt;number&gt; random items of type &lt;type&gt;</li> 
+</ul>
+</p><p>
+For example, invoking:
+</p><p>
+<b>
+<pre>https://{{ service_url }}/{{ version }}/generate/10/</pre>
+</b>
+</p><p>
+will generate 10 random items. Invoking:
+</p><p>
+<b>
+<pre>https://{{ service_url }}/{{ version }}/generate/11/Containers/</pre>
+</b>
+</p><p>
+will generate 11 random items of type &quot;Containers&quot;. 
+</p><p>
+The data are returned as a list of items.
+</p><p>
+<!--
+<pre>
+{
+  "dictionary": "nasa_opendata_trained_model_09_17_15.pkl",
+  "highest_ngram_allowed": 5,
+  "keywords": [
+    "nasa",
+    "rockets"
+  ],
+  "service_version": "v1",
+  "term_count_threshold": 1,
+  "textmining_library_version": "0.5.1"
+}
+</pre>
+</p><p>{{ usage }}</p>
+<p>
+</p><p>
+  <textarea rows="12" cols="80" id="txt" type="text" placeholder="text to tag"></textarea>
+  <button onclick="doit();">Run Service</button>
+  <h4>Return Data</h4>
+  <pre id="returnData"></pre>
+</p>
+-->
+
+</body></html>
