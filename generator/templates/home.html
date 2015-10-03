@@ -2,35 +2,13 @@
 <html>
 <head>
 <title>GURPS Dungeon Fantasy Treasure Generator Service</title>
-<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
-<script>
-var url = "/{{ version }}/{{ methodname }}/";
-
-$( document ).ready(function() {
-$("#txt").val("The 2000 Pilot Environmental Sustainability Index (ESI) is an exploratory effort to construct an index that measures the ability of a nation's economy to achieve sustainable development, with the long term goal of finding a single indicator for environmental sustainability analagous to that of the Gross Domestic Product (GDP). The index covering 56 countries is a composite measure of the current status of a nation's environmental systems, pressures on those systems, human vulnerability to environmental change, national capacity to respond, and contributions to global environmental stewardship. The index was unveiled at the World Economic Forum's annual meeting, January 2000, Davos, Switzerland. The 2000 Pilot ESI is the result of collaboration among the World Economic Forum (WEF), Yale Center for Environmental Law and Policy (YCELP), and the Columbia University Center for International Earth Science Information Network (CIESIN).");
-});
-
-function doit() {
-  var txt = $("#txt").val();
-
-  $.ajax({
-    type: "POST",
-    url: url, 
-    contentType: "application/json",
-    data: JSON.stringify({"text": txt}),
-    success: function(result) {
-      console.log(result);
-      $("#returnData").text(JSON.stringify(result, undefined, 2));
-    }
-  });  
-}
-
-</script>
 </head><body>
 <p>
 <h2>GURPS Dungeon Fantasy Treasure Generation Service {{version}}</h2>
-</p>
-
+</p><p>
+A service implementation for the 
+<a href="https://github.com/brian-thomas/df-treasure-generator">GURPS Dungeon Fantasy Treasure Generator project</a>.
+</p><p>
 <h3>Service API</h3>
 <p>
 This service contains a couple of endpoints which include:
