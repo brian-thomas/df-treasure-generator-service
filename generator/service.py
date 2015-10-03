@@ -37,15 +37,15 @@ def home():
                             library_version=LIBRARY_VERSION, \
                             ttypes=ttypes, service_url=request.host)
 
-@app.route('/generate/<int:number>/<ttype>/', methods=['GET'])
+@app.route('/'+SERVICE_VERSION+'/generate/<int:number>/<ttype>/', methods=['GET'])
 def generate_treasure_full(ttype, number):
     return render_template('results.html', items=__generate_treasure(ttype=ttype,number=number))
 
-@app.route('/generate/<int:number>/', methods=['GET'])
+@app.route('/'+SERVICE_VERSION+'/generate/<int:number>/', methods=['GET'])
 def generate_treasure_num_only(number):
     return render_template('results.html', items=__generate_treasure(number=number))
 
-@app.route('/generate/', methods=['GET'])
+@app.route('/'+SERVICE_VERSION+'/generate/', methods=['GET'])
 def generate_treasure_single():
     return render_template('results.html', items=__generate_treasure())
 
