@@ -21,17 +21,10 @@ LIBRARY_VERSION = gdftg.version
 
 app = Flask(__name__)
 
-def __generate__treasure(ttype="All", number=1):
+def __generate_treasure(ttype="All", number=1):
     try:
         generator = Generator(ttype)
-        items = generator.run(numberToGenerate=number, max_item_value=None, min_item_value=None, max_enchantments=None)
-
-        results = "<html><body><table>"
-        for item in items:
-            results += '<tr><td>' + str(item) + "</td></tr>" 
-        results += "</table></body></html>"
-
-        return results
+        return generator.run(numberToGenerate=number, max_item_value=None, min_item_value=None, max_enchantments=None)
 
     except Exception as ex:
         return str(ex)
@@ -40,20 +33,21 @@ def __generate__treasure(ttype="All", number=1):
 def home():
     gen = Generator()
     ttypes = sorted(list(gen.treasureClasses()))
-    return render_template('home.html', version=SERVICE_VERSION, \
+    return render_template('home.html', service_version=SERVICE_VERSION, \
+                            library_version=LIBRARY_VERSION, \
                             ttypes=ttypes, service_url=request.host)
 
 @app.route('/generate/<int:number>/<ttype>/', methods=['GET'])
 def generate_treasure_full(ttype, number):
-    return __generate__treasure(ttype=ttype,number=number)
+    return render_template('results.html', items=__generate_treasure(ttype=ttype,number=number))
 
 @app.route('/generate/<int:number>/', methods=['GET'])
 def generate_treasure_num_only(number):
-    return __generate__treasure(number=number)
+    return render_template('results.html', items=__generate_treasure(number=number))
 
 @app.route('/generate/', methods=['GET'])
 def generate_treasure_single():
-    return __generate__treasure()
+    return render_template('results.html', items=__generate_treasure())
 
 if __name__ == '__main__':
     app.run()

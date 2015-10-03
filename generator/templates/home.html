@@ -4,7 +4,7 @@
 <title>GURPS Dungeon Fantasy Treasure Generator Service</title>
 </head><body>
 <p>
-<h2>GURPS Dungeon Fantasy Treasure Generation Service {{version}}</h2>
+<h2>GURPS Dungeon Fantasy Treasure Generation Service {{service_version}}</h2>
 </p><p>
 A service implementation for the 
 <a href="https://github.com/brian-thomas/df-treasure-generator">GURPS Dungeon Fantasy Treasure Generator project</a>.
@@ -13,21 +13,21 @@ A service implementation for the
 <p>
 This service contains a couple of endpoints which include:
 <ul>
-  <li><b><i>/{{ version }}/generate/</i></b> : generates one random item </li> 
-  <li><b><i>/{{ version }}/generate/&lt;number&gt;/</i></b> : generates &lt;number&gt; random items </li> 
-  <li><b><i>/{{ version }}generate/&lt;number&gt;/&lt;type&gt;/</i></b> : generates &lt;number&gt; random items of type &lt;type&gt;</li> 
+  <li><b><i>/{{ service_version }}/generate/</i></b> : generates one random item </li> 
+  <li><b><i>/{{ service_version }}/generate/&lt;number&gt;/</i></b> : generates &lt;number&gt; random items </li> 
+  <li><b><i>/{{ service_version }}generate/&lt;number&gt;/&lt;type&gt;/</i></b> : generates &lt;number&gt; random items of type &lt;type&gt;</li> 
 </ul>
 </p><p>
 For example, invoking:
 </p><p>
 <b>
-<pre>https://{{ service_url }}/{{ version }}/generate/10/</pre>
+<pre>https://{{ service_url }}/{{ service_version }}/generate/10/</pre>
 </b>
 </p><p>
 will generate 10 random items. Invoking:
 </p><p>
 <b>
-<pre>https://{{ service_url }}/{{ version }}/generate/11/Containers/</pre>
+<pre>https://{{ service_url }}/{{ service_version }}/generate/11/Containers/</pre>
 </b>
 </p><p>
 will generate 11 random items of type &quot;Containers&quot;. 
@@ -45,28 +45,6 @@ the following :
  {% endfor %}
 </ul>
 </p><p>
-<!--
-<pre>
-{
-  "dictionary": "nasa_opendata_trained_model_09_17_15.pkl",
-  "highest_ngram_allowed": 5,
-  "keywords": [
-    "nasa",
-    "rockets"
-  ],
-  "service_version": "v1",
-  "term_count_threshold": 1,
-  "textmining_library_version": "0.5.1"
-}
-</pre>
-</p><p>{{ usage }}</p>
-<p>
-</p><p>
-  <textarea rows="12" cols="80" id="txt" type="text" placeholder="text to tag"></textarea>
-  <button onclick="doit();">Run Service</button>
-  <h4>Return Data</h4>
-  <pre id="returnData"></pre>
+{{ usage }}
 </p>
--->
-
 </body></html>
