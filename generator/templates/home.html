@@ -11,20 +11,25 @@ of treasure per the <a href="http://www.sjgames.com/gurps/books/dungeonfantasy/d
 </p><p>
 <h3>Service API</h3>
 <p>
-This service contains a couple of endpoints which include:
+This service contains several endpoints which include:
 <ul>
-  <li><b><i><a href="/{{ service_version }}/generate/">/{{ service_version }}/generate/</a></i></b> : generates one random item </li> 
-  <li><b><i><a href="/{{ service_version }}/generate/2/">/{{ service_version }}/generate/&lt;number&gt;/</a></i></b> : generates &lt;number&gt; random items </li> 
-  <li><b><i><a href="/{{ service_version }}/generate/2/Armor/">/{{ service_version }}/generate/&lt;number&gt;/&lt;type&gt;/</a></i></b> : generates &lt;number&gt; random items of type &lt;type&gt;</li> 
+  <li><b><i><a href="/{{ service_version }}/generate/?format=html">/{{ service_version }}/generate/</a></i></b> : generates one random item </li> 
+  <li><b><i><a href="/{{ service_version }}/generate/2/?format=html">/{{ service_version }}/generate/&lt;number&gt;/</a></i></b> : generates &lt;number&gt; random items </li> 
+  <li><b><i><a href="/{{ service_version }}/generate/2/Armor/?format=html">/{{ service_version }}/generate/&lt;number&gt;/&lt;type&gt;/</a></i></b> : generates &lt;number&gt; random items of type &lt;type&gt;</li> 
+  <li><b><i><a href="/{{ service_version }}/ttypes/?format=html">/{{ service_version }}/ttypes/</a></i></b> : returns the treasure types supported by this service</li> 
 </ul>
+</p><p>
+These endpoints all support one query parameter, &apos;format&apos;, which determines the format of 
+the returned results. The default is JSON, but if the value &apos;html&apos; is supplied, then html
+serialized results will be returned.
 </p><p>
 For example, invoking:
 </p><p>
 <b>
-<pre>https://{{ service_url }}/{{ service_version }}/generate/10/</pre>
+<pre>https://{{ service_url }}/{{ service_version }}/generate/1/</pre>
 </b>
 </p><p>
-will generate 10 random items. Invoking:
+will generate 1 random items. Returning the data as JSON (see example return block below). Invoking:
 </p><p>
 <b>
 <pre>https://{{ service_url }}/{{ service_version }}/generate/11/Containers/</pre>
@@ -33,6 +38,55 @@ will generate 10 random items. Invoking:
 will generate 11 random items of type &quot;Containers&quot;. 
 </p><p>
 The data are returned as a list of items.
+</p><p>
+<h3>Returned data and Query Parameters</h3>
+</p><p>
+Data are returned in JSON unless otherwise specified. For example, the first query above could
+return the following information:
+<pre>
+{
+  "items": [
+    {
+      "cost_per_item": "$5320.0",
+      "curses": [],
+      "desc": "1 Balanced Bolas with small bells and expensive patching [$5320.0, 0.67 lbs; Halfling sized (sm:-2 st: x0.5)]\n\t (Origin: Spirit) Enchantments: Ghost Weapon [skill:20] Supernatural Effects: Special Appearance",
+      "enchantments": [
+        {
+          "name": "Ghost Weapon",
+          "skill": 20
+        }
+      ],
+      "name": "Balanced Bolas with small bells and expensive patching",
+      "number": 1,
+      "origin": "Spirit",
+      "size": "Halfling",
+      "size_modifier": -2,
+      "supernatural_effects": [
+        "Special Appearance"
+      ],
+      "unit": "",
+      "weight_per_item": "0.67 lbs"
+    }
+  ],
+  "library_version": "0.9.2",
+  "service_version": "v1"
+}
+</pre>
+</p><p>
+IF the format=html parameter is provided, then instead, html is returned and is rendered as:
+</p><p>
+<pre>
+&lt;html&gt;
+&lt;body&gt;
+&lt;ul&gt;
+
+  &lt;li&gt;1 Balanced Bolas with small bells and expensive patching [$5320.0, 0.67 lbs; Halfling sized (sm:-2 st: x0.5)]
+     (Origin: Spirit) Enchantments: Ghost Weapon [skill:20] Supernatural Effects: Special Appearance&lt;/li&gt; 
+ 
+&lt;/ul&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
 </p><p>
 <h3>Treasure Types</h3>
 </p><p>
