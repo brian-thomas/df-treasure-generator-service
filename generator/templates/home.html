@@ -19,17 +19,25 @@ This service contains several endpoints which include:
   <li><b><i><a href="/{{ service_version }}/ttypes/?format=html">/{{ service_version }}/ttypes/</a></i></b> : returns the treasure types supported by this service</li> 
 </ul>
 </p><p>
-These endpoints all support one query parameter, &apos;format&apos;, which determines the format of 
+<h3>Query Parameters</h3>
+These endpoints all support one query parameter, <b>format</b>, which determines the format of 
 the returned results. The default is JSON, but if the value &apos;html&apos; is supplied, then html
 serialized results will be returned.
 </p><p>
-For example, invoking:
+The query parameters <b>max</b>, <b>min</b> and <b>max_enchant</b> respectively set the maximum item value, 
+the minimum item value and the maximum number of enchantments per item. You may not set the max value less than
+the minimum value. IF none of these query parameters are set (they are optional), the the service will generate
+the values randomly.
+</p><p>
+<h3>Examples</h3>
+</p><p>
+Some examples of using the service. By invoking:
 </p><p>
 <b>
 <pre>https://{{ service_url }}/{{ service_version }}/generate/1/</pre>
 </b>
 </p><p>
-will generate 1 random items. Returning the data as JSON (see example return block below). Invoking:
+the service will generate 1 random items. Returning the data as JSON (see example return block below). Invoking:
 </p><p>
 <b>
 <pre>https://{{ service_url }}/{{ service_version }}/generate/11/Containers/</pre>

@@ -22,6 +22,8 @@ logging.getLogger(__name__).setLevel(logging.DEBUG)
 # assorted libraries
 SERVICE_VERSION='v1'
 
+MAX_ENCHANTMENTS=10
+
 # textmining-ocio library version backing this service
 LIBRARY_VERSION = gdftg.version
 
@@ -34,13 +36,46 @@ def _abort(code, msg):
     response.status_code = code
     return response
 
-def __generate_treasure(ttype="All", number=1, rformat='json'):
+def __generate_treasure(ttype="All", number=1, rformat='json', args=None): 
+        
+    rformat = args.get('format', 'json')
+    max_item_value = args.get('max', None)
+    min_item_value = args.get('min', None)
+    max_enchantments = args.get('max_enchant', None)
+    
+    # recast string to int
+    if max_item_value:
+        max_item_value = int(max_item_value)
+        
+    if min_item_value:
+        min_item_value = int(min_item_value)
+    
+    if max_enchantments:
+        max_enchantments = int(max_enchantments)
+        
+    # validate our params
+    if min_item_value and min_item_value < 0:
+        return _abort(400, "Cannot set min item value less than 0")
+    
+    if max_item_value and max_item_value < 0:
+        return _abort(400, "Cannot set max item value less than 0")
+        
+    if max_enchantments and max_enchantments < 0:
+        return _abort(400, "Cannot set max_enchant value less than 0")
+    
+    if max_enchantments and max_enchantments > MAX_ENCHANTMENTS:
+        return _abort(400, "Cannot set max_enchant value greater than "+str(MAX_ENCHANTMENTS))
+        
+    if min_item_value and max_item_value and max_item_value < min_item_value:
+        return _abort(400, "Cannot set min value higher than max value")
     
     items = []
     try:
         generator = Generator(ttype)
-        items = generator.run(numberToGenerate=number, max_item_value=None, min_item_value=None, max_enchantments=None)
-
+        items = generator.run(numberToGenerate=number, 
+                              max_item_value=max_item_value, min_item_value=min_item_value, 
+                              max_enchantments=max_enchantments)
+        
     except Exception as ex:
         return str(ex)
     
@@ -60,25 +95,19 @@ def home():
                             library_version=LIBRARY_VERSION, \
                             ttypes=ttypes, service_url=request.host)
 
-@app.route('/'+SERVICE_VERSION+'/generate/<int:number>/<ttype>/', methods=['GET'])
+@app.route('/v1/generate/<int:number>/<ttype>/', methods=['GET'])
 def generate_treasure_full(ttype, number=1, rformat='json'):
-    
-    rformat = request.args.get('format', 'json')
-    return __generate_treasure(ttype=ttype, number=number, rformat=rformat)
+    return __generate_treasure(ttype=ttype, number=number, args=request.args) 
             
-
-@app.route('/'+SERVICE_VERSION+'/generate/<int:number>/', methods=['GET'])
+@app.route('/v1/generate/<int:number>/', methods=['GET'])
 def generate_treasure_num_only(number, rformat='json'):
+    return __generate_treasure(number=number, args=request.args) 
     
-    rformat = request.args.get('format', 'json')
-    return __generate_treasure(number=number, rformat=rformat)
-    
-@app.route('/'+SERVICE_VERSION+'/generate/', methods=['GET'])
+@app.route('/v1/generate/', methods=['GET'])
 def generate_treasure_single(rformat='json'):
-    rformat = request.args.get('format', 'json')
-    return __generate_treasure(rformat=rformat)
+    return __generate_treasure(args=request.args) 
 
-@app.route('/'+SERVICE_VERSION+'/ttypes/', methods=['GET'])
+@app.route('/v1/ttypes/', methods=['GET'])
 def treature_types(rformat='json'):
     
     gen = Generator()
