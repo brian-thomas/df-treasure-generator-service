@@ -14,7 +14,6 @@ which is available on heroku at :
 
 https://df-treasure-generator.herokuapp.com/
 
-
 # Local Service
 
 To use locally, install a new virtual machine using virtualenv.
