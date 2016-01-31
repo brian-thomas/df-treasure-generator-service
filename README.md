@@ -1,5 +1,7 @@
 # df-treasure-generator-service
 
+## About
+
 A service implementation for the GURPS Dungeon Fantasy Treasure 
 Generator project.
 
@@ -13,26 +15,4 @@ Please don't ask for a copy; I will not distribute it. Enjoy the service
 which is available on heroku at :
 
 https://df-treasure-generator.herokuapp.com/
-
-# Local Service
-
-To use locally, install a new virtual machine using virtualenv.
-
-> virtualenv -p <python3> <directory>
-> source <directory>/bin/activate.sh
-
-Next install the dependencies using pip, e.g.
-
-> pip install -r requirements.txt
-
-Now you can run the service locally, e.g.:
-
-> python generator/service.py 
-
-# Heroku Service
-
-If you want deploy to Heroku (http://heroku.com), you will need to 
-obtain an account, configure your environment and create a new 
-service project to deploy this service to (see Heroku site 
-documentation). 
 
