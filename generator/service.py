@@ -8,9 +8,10 @@
    @email=galactictaco@gmail.com
 
 '''
-from flask import jsonify, request, render_template, Flask
+from flask import jsonify, request, render_template, send_from_directory, Flask
 from flask.ext.cors import CORS
 from gdftg.generator import Generator
+import os
 import gdftg
 import logging
 
@@ -87,6 +88,10 @@ def __generate_treasure(ttype="All", number=1, rformat='json', args=None):
                          items = items.as_list()
                        )
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
 @app.route('/')
 def home():
     gen = Generator()
