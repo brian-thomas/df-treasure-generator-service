@@ -3,4 +3,4 @@ Flask-Cors==2.1.2
 gunicorn==19.3.0
 Jinja2==2.8
 Werkzeug==0.10.4
-git+https://1be2f3796dee88685fede82f0c2d4d55cfdefcf0:x-oauth-basic@github.com/brian-thomas/df-treasure-generator.git@master
+git+https://b203c57b16f8c875b98122c548f7648620b9b4f9:x-oauth-basic@github.com/brian-thomas/df-treasure-generator.git@master
