@@ -88,11 +88,11 @@ def __generate_treasure(ttype="All", number=1, rformat='json', args=None):
                          items = items.as_list()
                        )
 
-@app.route('/<path:filename>', methods=['GET'])
+@app.route('/<path:filename>')
 def send_file(filename):
     return send_from_directory(app.static_folder, filename) #, mimetype='image/vnd.microsoft.icon')
 
-@app.route('/', methods=['GET'])
+@app.route('/')
 def home():
     gen = Generator()
     ttypes = sorted(list(gen.treasureClasses()))
@@ -100,19 +100,19 @@ def home():
                             library_version=LIBRARY_VERSION, \
                             ttypes=ttypes, service_url=request.host)
 
-@app.route('/v1/generate/<int:number>/<ttype>/', methods=['GET'])
+@app.route('/v1/generate/<int:number>/<ttype>/')
 def generate_treasure_full(ttype, number=1, rformat='json'):
     return __generate_treasure(ttype=ttype, number=number, args=request.args) 
             
-@app.route('/v1/generate/<int:number>/', methods=['GET'])
+@app.route('/v1/generate/<int:number>/')
 def generate_treasure_num_only(number, rformat='json'):
     return __generate_treasure(number=number, args=request.args) 
     
-@app.route('/v1/generate/', methods=['GET'])
+@app.route('/v1/generate/')
 def generate_treasure_single(rformat='json'):
     return __generate_treasure(args=request.args) 
 
-@app.route('/v1/ttypes/', methods=['GET'])
+@app.route('/v1/ttypes/')
 def treature_types(rformat='json'):
     
     gen = Generator()
