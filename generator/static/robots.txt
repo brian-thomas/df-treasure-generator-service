@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: /v1
 Disallow: /v1/generator
-Disallow: /ttypes
+Disallow: /v1/ttypes
