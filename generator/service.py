@@ -28,7 +28,7 @@ MAX_ENCHANTMENTS=10
 # textmining-ocio library version backing this service
 LIBRARY_VERSION = gdftg.version
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', static_url_path='')
 CORS(app)
 
 def _abort(code, msg):
@@ -88,11 +88,11 @@ def __generate_treasure(ttype="All", number=1, rformat='json', args=None):
                          items = items.as_list()
                        )
 
-@app.route('/favicon.ico')
-def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static'),
-                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
-@app.route('/')
+@app.route('/<path:filename>', methods=['GET'])
+def send_file(filename):
+    return send_from_directory(app.static_folder, filename) #, mimetype='image/vnd.microsoft.icon')
+
+@app.route('/', methods=['GET'])
 def home():
     gen = Generator()
     ttypes = sorted(list(gen.treasureClasses()))
