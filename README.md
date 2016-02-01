@@ -16,5 +16,12 @@ which is available on heroku at :
 
 https://df-treasure-generator.herokuapp.com/
 
+## Notice
 
+Dungeon Fantasy Treasure Tables and GURPS are a trademark of Steve Jackson 
+Games, and its rules and art are copyrighted by Steve Jackson Games. All 
+rights are reserved by Steve Jackson Games. This game aid is the original 
+creation of Brian Thomas and is released for free distribution, and not for 
+resale, under the permissions granted in the Steve Jackson Games Online 
+Policy. 
 
