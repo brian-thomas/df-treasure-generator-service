@@ -90,38 +90,46 @@ def __generate_treasure (ttype="All", number=1, rformat='json', args=None):
                          items = items.as_list()
                        )
 
-'''
-@app.route('/<path:filename>')
-def send_file(filename):
-    return send_from_directory(app.static_folder, filename) #, mimetype='image/vnd.microsoft.icon')
-'''
-
-@app.route('/test')
-def test_page():
-    return render_template('test.html', service_url=request.host)
+# Endpoints/Routes
 
 @app.route('/')
 def home():
+    LOG.debug("Called root of site")
     gen = Generator()
     ttypes = sorted(list(gen.treasureClasses()))
     return render_template('home.html', service_version=SERVICE_VERSION, \
                             library_version=LIBRARY_VERSION, \
                             ttypes=ttypes, service_url=request.host)
 
+@app.route('/<path:filename>')
+def send_file(filename):
+    LOG.debug("Called static file recall file:"+filename)
+    return send_from_directory(app.static_folder, filename) #, mimetype='image/vnd.microsoft.icon')
+
+@app.route('/test/')
+def test_page():
+    LOG.debug("Called /test/")
+    return render_template('test.html', service_url=request.host)
+
+
 @app.route('/v1/generate/<int:number>/<ttype>/')
 def generate_treasure_full(ttype, number=1, rformat='json'):
+    LOG.debug("Called /v1/generate/<num>/<ttype>")
     return __generate_treasure(ttype=ttype, number=number, args=request.args) 
             
 @app.route('/v1/generate/<int:number>/')
 def generate_treasure_num_only(number, rformat='json'):
+    LOG.debug("Called /v1/generate/<num>")
     return __generate_treasure(number=number, args=request.args) 
     
 @app.route('/v1/generate/')
 def generate_treasure_single(rformat='json'):
+    LOG.debug("Called /v1/generate/")
     return __generate_treasure(args=request.args) 
 
 @app.route('/v1/ttypes/')
 def treature_types(rformat='json'):
+    LOG.debug("Called /v1/ttypes")
     
     gen = Generator()
     ttypes = sorted(list(gen.treasureClasses()))
