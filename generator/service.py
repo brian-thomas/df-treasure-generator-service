@@ -40,7 +40,7 @@ def _abort(code, msg):
 
 def __generate_treasure (ttype="All", number=1, rformat='json', args=None): 
         
-    LOG.debug("__generate_treasure called n:"+str(number)+" ttype:"+str(tttype))
+    LOG.debug("__generate_treasure called n:"+str(number)+" ttype:"+str(ttype))
     rformat = args.get('format', 'json')
     max_item_value = args.get('max', None)
     min_item_value = args.get('min', None)
