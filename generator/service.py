@@ -92,6 +92,10 @@ def __generate_treasure(ttype="All", number=1, rformat='json', args=None):
 def send_file(filename):
     return send_from_directory(app.static_folder, filename) #, mimetype='image/vnd.microsoft.icon')
 
+@app.route('/test')
+def test_page():
+    return render_template('test.html', service_url=request.host)
+
 @app.route('/')
 def home():
     gen = Generator()
