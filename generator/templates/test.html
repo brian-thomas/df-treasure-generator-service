@@ -5,11 +5,11 @@
 <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 <script>
 function doit() {
-  var txt = $("#txt").val();
+  var url = "http://{{ service_url }}/v1/generate/2/All";
 
   $.ajax({
     type: "GET",
-    url: "/v1/generate/2/All/";
+    url: url,
     contentType: "application/json",
     success: function(result) {
       console.log(result);
@@ -24,7 +24,6 @@ function doit() {
 <h3>Example Client</h3>
 </p><p>
 <label>Click to get some data</label><br/>
-  <!--textarea rows="12" cols="80" id="txt" type="text" placeholder="text to tag"></textarea-->
   <button onclick="doit();">Run Service</button>
   <h4>Return Data</h4>
   <pre id="returnData"></pre>
