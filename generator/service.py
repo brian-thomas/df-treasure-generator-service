@@ -16,8 +16,9 @@ import gdftg
 import logging
 
 LOG = logging.getLogger(__name__)
-logging.basicConfig(level=logging.INFO) 
+logging.basicConfig(level=logging.DEBUG) 
 logging.getLogger(__name__).setLevel(logging.DEBUG)
+logging.getLogger('flask_cors').level = logging.DEBUG
 
 # this should reflect both this service and the backing
 # assorted libraries
@@ -28,8 +29,7 @@ MAX_ENCHANTMENTS=10
 # textmining-ocio library version backing this service
 LIBRARY_VERSION = gdftg.version
 
-#app = Flask(__name__, static_folder='static', static_url_path='')
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', static_url_path='')
 CORS(app)
 
 def _abort(code, msg):
