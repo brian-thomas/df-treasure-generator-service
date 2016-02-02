@@ -9,11 +9,11 @@
 
 '''
 from flask import jsonify, request, render_template, send_from_directory, Flask
-from flask.ext.cors import CORS
 from gdftg.generator import Generator
 import os
 import gdftg
 import logging
+from flask.ext.cors import CORS
 
 LOG = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG) 
@@ -24,6 +24,7 @@ logging.getLogger('flask_cors').level = logging.DEBUG
 # assorted libraries
 SERVICE_VERSION='v1'
 
+# maximum number of enchantments
 MAX_ENCHANTMENTS=10
 
 # textmining-ocio library version backing this service
@@ -113,22 +114,22 @@ def test_page():
 
 
 @app.route('/v1/generate/<int:number>/<ttype>/')
-def generate_treasure_full(ttype, number=1, rformat='json'):
+def generate_treasure_full(ttype, number=1):
     LOG.debug("Called /v1/generate/<num>/<ttype>")
     return __generate_treasure(ttype=ttype, number=number, args=request.args) 
             
 @app.route('/v1/generate/<int:number>/')
-def generate_treasure_num_only(number, rformat='json'):
+def generate_treasure_num_only(number):
     LOG.debug("Called /v1/generate/<num>")
     return __generate_treasure(number=number, args=request.args) 
     
 @app.route('/v1/generate/')
-def generate_treasure_single(rformat='json'):
+def generate_treasure_single():
     LOG.debug("Called /v1/generate/")
     return __generate_treasure(args=request.args) 
 
 @app.route('/v1/ttypes/')
-def treature_types(rformat='json'):
+def treature_types():
     LOG.debug("Called /v1/ttypes")
     
     gen = Generator()
