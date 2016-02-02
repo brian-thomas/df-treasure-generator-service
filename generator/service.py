@@ -17,7 +17,7 @@ import logging
 
 LOG = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO) 
-#logging.getLogger(__name__).setLevel(logging.DEBUG)
+logging.getLogger(__name__).setLevel(logging.DEBUG)
 
 # this should reflect both this service and the backing
 # assorted libraries
@@ -28,7 +28,8 @@ MAX_ENCHANTMENTS=10
 # textmining-ocio library version backing this service
 LIBRARY_VERSION = gdftg.version
 
-app = Flask(__name__, static_folder='static', static_url_path='')
+#app = Flask(__name__, static_folder='static', static_url_path='')
+app = Flask(__name__)
 CORS(app)
 
 def _abort(code, msg):
@@ -37,8 +38,9 @@ def _abort(code, msg):
     response.status_code = code
     return response
 
-def __generate_treasure(ttype="All", number=1, rformat='json', args=None): 
+def __generate_treasure (ttype="All", number=1, rformat='json', args=None): 
         
+    LOG.debug("__generate_treasure called n:"+str(number)+" ttype:"+str(tttype))
     rformat = args.get('format', 'json')
     max_item_value = args.get('max', None)
     min_item_value = args.get('min', None)
@@ -88,9 +90,11 @@ def __generate_treasure(ttype="All", number=1, rformat='json', args=None):
                          items = items.as_list()
                        )
 
+'''
 @app.route('/<path:filename>')
 def send_file(filename):
     return send_from_directory(app.static_folder, filename) #, mimetype='image/vnd.microsoft.icon')
+'''
 
 @app.route('/test')
 def test_page():
