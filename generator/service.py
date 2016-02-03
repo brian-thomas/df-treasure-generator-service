@@ -31,7 +31,7 @@ MAX_ENCHANTMENTS=10
 LIBRARY_VERSION = gdftg.version
 
 app = Flask(__name__, static_folder='static', static_url_path='')
-CORS(app, origins='*')
+CORS(app, origins='*', allow_headers='*')
 
 def _abort(code, msg):
 
@@ -114,7 +114,7 @@ def test_page():
 
 
 @app.route('/v1/generate/<int:number>/<ttype>/', methods=['GET'])
-@cross_origin()
+@cross_origin(allow_headers='*')
 def generate_treasure_full(ttype, number=1):
     LOG.debug("Called /v1/generate/<num>/<ttype>")
     return __generate_treasure(ttype=ttype, number=number, args=request.args) 
