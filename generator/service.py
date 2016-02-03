@@ -13,7 +13,7 @@ from gdftg.generator import Generator
 import os
 import gdftg
 import logging
-from flask.ext.cors import CORS
+from flask.ext.cors import CORS, cross_origin
 
 LOG = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG) 
