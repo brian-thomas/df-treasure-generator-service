@@ -114,6 +114,7 @@ def test_page():
 
 
 @app.route('/v1/generate/<int:number>/<ttype>/', methods=['GET'])
+@cross_origin()
 def generate_treasure_full(ttype, number=1):
     LOG.debug("Called /v1/generate/<num>/<ttype>")
     return __generate_treasure(ttype=ttype, number=number, args=request.args) 
