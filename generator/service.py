@@ -13,7 +13,7 @@ from gdftg.generator import Generator
 import os
 import gdftg
 import logging
-from flask.ext.cors import CORS, cross_origin
+from flask.ext.cors import CORS
 
 LOG = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG) 
@@ -31,7 +31,8 @@ MAX_ENCHANTMENTS=10
 LIBRARY_VERSION = gdftg.version
 
 app = Flask(__name__, static_folder='static', static_url_path='')
-CORS(app, origins='*', allow_headers='*')
+#CORS(app, resources={r"/v1/*": {'origins': '*', 'allow_headers' : '*'}})
+CORS(app)
 
 def _abort(code, msg):
 
@@ -91,6 +92,12 @@ def __generate_treasure (ttype="All", number=1, rformat='json', args=None):
                          items = items.as_list()
                        )
 
+
+def options (self):
+    return {'Allow' : 'PUT' }, 200, \
+           { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers' : '*', \
+             'Access-Control-Allow-Methods' : 'PUT,GET' }
+
 # Endpoints/Routes
 
 @app.route('/', methods=['GET'])
@@ -107,14 +114,7 @@ def send_file(filename):
     LOG.debug("Called static file recall file:"+filename)
     return send_from_directory(app.static_folder, filename) #, mimetype='image/vnd.microsoft.icon')
 
-@app.route('/test/', methods=['GET'])
-def test_page():
-    LOG.debug("Called /test/")
-    return render_template('test.html', service_url=request.host)
-
-
-@app.route('/v1/generate/<int:number>/<ttype>/', methods=['GET'])
-@cross_origin(allow_headers='*')
+@app.route('/v1/generate/<int:number>/<ttype>/', methods=['GET', 'OPTIONS'])
 def generate_treasure_full(ttype, number=1):
     LOG.debug("Called /v1/generate/<num>/<ttype>")
     return __generate_treasure(ttype=ttype, number=number, args=request.args) 
