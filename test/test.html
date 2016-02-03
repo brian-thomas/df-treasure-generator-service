@@ -5,7 +5,12 @@
 <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 <script>
 function doit() {
-  var url = "http://{{ service_url }}/v1/generate/2/All";
+  //var url = "http://127.0.0.1:5000/v1/generate/2/Armor";
+  //var url = "http://localhost:5000/v1/generate/2/Armor";
+  var url = "http://localhost:5000/v1/generate/2/Armor/";
+  // var url = "http://localhost:5000/v1/generate/";
+  //var url = "https://df-treasure-generator.herokuapp.com/v1/generate/2/All";
+  //var url = "http://localhost:5000/foo";
 
   $.ajax({
     type: "GET",
