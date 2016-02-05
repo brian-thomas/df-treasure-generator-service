@@ -16,8 +16,8 @@ from flask.ext.cors import CORS, cross_origin
 import logging
 
 LOG = logging.getLogger(__name__)
-logging.basicConfig(level=logging.INFO)
-logging.getLogger(__name__).setLevel(logging.DEBUG)
+logging.basicConfig(level=logging.WARN)
+logging.getLogger(__name__).setLevel(logging.INFO)
 logging.getLogger('gdftg').setLevel(logging.INFO)
 #logging.getLogger('flask_cors').level = logging.DEBUG
 
