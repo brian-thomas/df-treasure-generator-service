@@ -24,4 +24,3 @@ rights are reserved by Steve Jackson Games. This game aid is the original
 creation of Brian Thomas and is released for free distribution, and not for 
 resale, under the permissions granted in the Steve Jackson Games Online 
 Policy. 
-
