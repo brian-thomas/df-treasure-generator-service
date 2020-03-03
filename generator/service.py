@@ -12,7 +12,7 @@ from flask import Flask
 from flask import jsonify, request, render_template, send_from_directory, Flask
 from gdftg.generator import Generator
 import gdftg
-from flask.ext.cors import CORS, cross_origin
+from flask_cors import CORS, cross_origin 
 import logging
 
 LOG = logging.getLogger(__name__)
