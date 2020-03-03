@@ -1,5 +1,6 @@
 Flask
 Flask-Cors
+flask.ext
 gunicorn
 Jinja2
 Werkzeug
