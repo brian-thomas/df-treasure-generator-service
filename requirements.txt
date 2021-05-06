@@ -1,6 +1,6 @@
 Click==7.0
 Flask==1.1.1
-Flask-Cors==3.0.8
+Flask-Cors==3.0.9
 Flask-Ext==0.1
 gunicorn==20.0.4
 itsdangerous==1.1.0
